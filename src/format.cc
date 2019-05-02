@@ -524,9 +524,6 @@ napi_value guessFormat(napi_env env, napi_callback_info info) {
     status = napi_get_null(env, &result);
     CHECK_STATUS;
   } else {
-    // :NOTE: Forcing non-strict timestamps to work around some clipping issues, it isn't possible to set this in Javascript yet it appears.
-    oformat->flags |= AVFMT_TS_NONSTRICT;
-
     status = fromAVOutputFormat(env, oformat, &result);
     CHECK_STATUS;
   }
