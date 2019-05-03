@@ -23,7 +23,7 @@ const os = require('os');
 const fs = require('fs');
 const util = require('util');
 const https = require('https');
-const unzip = require('unzip');
+const unzipper = require('unzipper');
 const cp = require('child_process');
 const [ mkdir, access, rename, execFile, exec ] = // eslint-disable-line
   [ fs.mkdir, fs.access, fs.rename, cp.execFile, cp.exec ].map(util.promisify);
@@ -53,7 +53,7 @@ async function get(ws, url, name) {
 async function inflate(rs, folder, name) {
   return new Promise((comp, err) => {
     console.log(`Unzipping '${folder}/${name}'.`);
-    rs.pipe(unzip.Extract({ path: folder }));
+    rs.pipe(unzipper.Extract({ path: folder }));
     rs.on('close', () => {
       console.log(`Unzipping of '${folder}/${name}' completed.`);
       comp();
@@ -138,7 +138,7 @@ async function darwin() {
   console.log('Checking for FFmpeg dependencies via HomeBrew.');
   let output;
   let returnMessage;
-  
+
   try {
     output = await exec('brew list ffmpeg');
     returnMessage = 'FFmpeg already present via Homebrew.';
