@@ -235,7 +235,7 @@ napi_value governor(napi_env env, napi_callback_info info) {
   status = napi_create_object(env, &governorObj);
   CHECK_STATUS;
 
-  Adaptor *adaptor = new Adaptor(4);
+  Adaptor *adaptor = new Adaptor(3);
 
   napi_value adaptorValue;
   status = napi_create_external(env, adaptor, finalizeAdaptor, nullptr, &adaptorValue);
