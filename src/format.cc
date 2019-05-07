@@ -3828,7 +3828,8 @@ void formatContextFinalizer(napi_env env, void* data, void* hint) {
   int ret;
   if (fc->pb != nullptr) {
     if (adaptor) {
-      adaptor->finish();
+      // :NOTE: Possible use after free, causing crashes/lockups, so commenting this out.
+      //adaptor->finish();
       avio_context_free(&fc->pb);
     } else {
       ret = avio_closep(&fc->pb);
